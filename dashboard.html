@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>داشبورد پروژه‌های نقشه‌برداری</title>
+    <!-- اضافه کردن کتابخانه moment-jalaali برای تاریخ شمسی -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-jalaali/0.9.1/moment-jalaali.min.js"></script>
+    <style>
+        /* استایل جدول */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        /* رنگ‌های هشدار برای تاریخ تحویل */
+        .yellow {
+            background-color: yellow;
+        }
+        .red {
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>داشبورد پروژه‌های نقشه‌برداری</h1>
+
+    <!-- فیلتر وضعیت پروژه -->
+    <label for="project-status-filter">فیلتر وضعیت پروژه:</label>
+    <select id="project-status-filter" onchange="filterProjects()">
+        <option value="all">همه وضعیت‌ها</option>
+        <option value="in-progress">در حال انجام</option>
+        <option value="completed">تمام شده</option>
+        <option value="delivered">تحویل شده</option>
+        <option value="settled">تسویه شده</option>
+    </select>
+
+    <!-- جدول پروژه‌ها -->
+    <table id="projects-table">
+        <thead>
+            <tr>
+                <th>نام پروژه</th>
+                <th>وضعیت</th>
+                <th>تاریخ تحویل</th>
+                <th>جزئیات</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>پروژه 1</td>
+                <td class="status">در حال انجام</td>
+                <td class="due-date">2025-04-02</td>
+                <td><button onclick="viewDetails('پروژه 1')">مشاهده جزئیات</button></td>
+            </tr>
+            <tr>
+                <td>پروژه 2</td>
+                <td class="status">تمام شده</td>
+                <td class="due-date">2025-03-28</td>
+                <td><button onclick="viewDetails('پروژه 2')">مشاهده جزئیات</button></td>
+            </tr>
+            <tr>
+                <td>پروژه 3</td>
+                <td class="status">تحویل شده</td>
+                <td class="due-date">2025-04-05</td>
+                <td><button onclick="viewDetails('پروژه 3')">مشاهده جزئیات</button></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- جاوا اسکریپت -->
+    <script>
+        // فیلتر کردن پروژه‌ها بر اساس وضعیت
+        function filterProjects() {
+            const filterValue = document.getElementById('project-status-filter').value;
+            const rows = document.querySelectorAll('#projects-table tbody tr');
+
+            rows.forEach(row => {
+                const status = row.querySelector('.status').textContent.toLowerCase();
+                if (filterValue === 'all' || status.includes(filterValue)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        // نمایش جزئیات پروژه
+        function viewDetails(projectName) {
+            alert("جزئیات پروژه: " + projectName);
+        }
+
+        // تبدیل تاریخ میلادی به تاریخ شمسی
+        function convertToShamsi(date) {
+            return moment(date, 'YYYY-MM-DD').format('jYYYY/jMM/jDD');
+        }
+
+        // تغییر رنگ ردیف‌ها بسته به تاریخ تحویل
+        function updateProjectRowColors() {
+            const rows = document.querySelectorAll('#projects-table tbody tr');
+            const today = moment(); // تاریخ امروز
+
+            rows.forEach(row => {
+                const dueDate = row.querySelector('.due-date').textContent;
+                const dueDateMoment = moment(dueDate, 'YYYY-MM-DD');
+                const timeDifference = dueDateMoment - today;
+
+                // تبدیل تاریخ تحویل به شمسی
+                row.querySelector('.due-date').textContent = convertToShamsi(dueDate);
+
+                // پروژه‌هایی که تا ۳ روز دیگر تحویل دارند
+                if (timeDifference <= 3 * 24 * 60 * 60 * 1000 && timeDifference > 0) {
+                    row.classList.add('yellow');
+                }
+                // پروژه‌هایی که تاریخ تحویل آن‌ها گذشته است
+                else if (timeDifference < 0) {
+                    row.classList.add('red');
+                }
+            });
+        }
+
+        // به‌روزرسانی رنگ‌ها و تاریخ‌های شمسی پس از بارگذاری صفحه
+        updateProjectRowColors();
+    </script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>داشبورد پروژه‌های نقشه‌برداری</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-jalaali/0.9.1/moment-jalaali.min.js"></script>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .yellow {
+            background-color: yellow;
+        }
+        .red {
+            background-color: red;
+        }
+        /* استایل برای فرم ثبت مالی */
+        .financial-form {
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            padding: 15px;
+            background-color: #f9f9f9;
+        }
+        .financial-form input {
+            margin: 10px 0;
+            padding: 8px;
+            width: 200px;
+        }
+        .financial-form button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .financial-form button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>داشبورد پروژه‌های نقشه‌برداری</h1>
+
+    <!-- فیلتر وضعیت پروژه -->
+    <label for="project-status-filter">فیلتر وضعیت پروژه:</label>
+    <select id="project-status-filter" onchange="filterProjects()">
+        <option value="all">همه وضعیت‌ها</option>
+        <option value="in-progress">در حال انجام</option>
+        <option value="completed">تمام شده</option>
+        <option value="delivered">تحویل شده</option>
+        <option value="settled">تسویه شده</option>
+    </select>
+
+    <!-- جدول پروژه‌ها -->
+    <table id="projects-table">
+        <thead>
+            <tr>
+                <th>نام پروژه</th>
+                <th>وضعیت</th>
+                <th>تاریخ تحویل</th>
+                <th>جزئیات</th>
+                <th>وضعیت مالی</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>پروژه 1</td>
+                <td class="status">در حال انجام</td>
+                <td class="due-date">2025-04-02</td>
+                <td><button onclick="viewDetails('پروژه 1')">مشاهده جزئیات</button></td>
+                <td><button onclick="updatePaymentStatus('پروژه 1')">وضعیت مالی</button></td>
+            </tr>
+            <tr>
+                <td>پروژه 2</td>
+                <td class="status">تمام شده</td>
+                <td class="due-date">2025-03-28</td>
+                <td><button onclick="viewDetails('پروژه 2')">مشاهده جزئیات</button></td>
+                <td><button onclick="updatePaymentStatus('پروژه 2')">وضعیت مالی</button></td>
+            </tr>
+            <tr>
+                <td>پروژه 3</td>
+                <td class="status">تحویل شده</td>
+                <td class="due-date">2025-04-05</td>
+                <td><button onclick="viewDetails('پروژه 3')">مشاهده جزئیات</button></td>
+                <td><button onclick="updatePaymentStatus('پروژه 3')">وضعیت مالی</button></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- فرم ثبت وضعیت مالی -->
+    <div class="financial-form" id="financial-form">
+        <h3>ثبت وضعیت مالی پروژه</h3>
+        <label for="project-name">نام پروژه:</label>
+        <input type="text" id="project-name" disabled><br>
+
+        <label for="amount-paid">مبلغ پرداختی:</label>
+        <input type="number" id="amount-paid" placeholder="مبلغ پرداختی"><br>
+
+        <label for="advance-paid">بیعانه پرداختی:</label>
+        <input type="number" id="advance-paid" placeholder="بیعانه پرداختی"><br>
+
+        <button onclick="saveFinancialDetails()">ثبت</button>
+    </div>
+
+    <!-- جاوا اسکریپت -->
+    <script>
+        // فیلتر کردن پروژه‌ها بر اساس وضعیت
+        function filterProjects() {
+            const filterValue = document.getElementById('project-status-filter').value;
+            const rows = document.querySelectorAll('#projects-table tbody tr');
+
+            rows.forEach(row => {
+                const status = row.querySelector('.status').textContent.toLowerCase();
+                if (filterValue === 'all' || status.includes(filterValue)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        // نمایش جزئیات پروژه
+        function viewDetails(projectName) {
+            alert("جزئیات پروژه: " + projectName);
+        }
+
+        // ثبت و ذخیره وضعیت مالی
+        function updatePaymentStatus(projectName) {
+            document.getElementById('project-name').value = projectName;
+            document.getElementById('financial-form').style.display = 'block';
+        }
+
+        // ذخیره وضعیت مالی پروژه
+        function saveFinancialDetails() {
+            const projectName = document.getElementById('project-name').value;
+            const amountPaid = document.getElementById('amount-paid').value;
+            const advancePaid = document.getElementById('advance-paid').value;
+
+            // ذخیره‌سازی اطلاعات (در اینجا، برای مثال فقط نمایش داده می‌شود)
+            alert(`وضعیت مالی پروژه ${projectName} ثبت شد. مبلغ پرداختی: ${amountPaid} تومان، بیعانه پرداختی: ${advancePaid} تومان`);
+
+            // مخفی کردن فرم بعد از ثبت
+            document.getElementById('financial-form').style.display = 'none';
+        }
+
+        // تبدیل تاریخ میلادی به تاریخ شمسی
+        function convertToShamsi(date) {
+            return moment(date, 'YYYY-MM-DD').format('jYYYY/jMM/jDD');
+        }
+
+        // تغییر رنگ ردیف‌ها بسته به تاریخ تحویل
+        function updateProjectRowColors() {
+            const rows = document.querySelectorAll('#projects-table tbody tr');
+            const today = moment();
+
+            rows.forEach(row => {
+                const dueDate = row.querySelector('.due-date').textContent;
+                const dueDateMoment = moment(dueDate, 'YYYY-MM-DD');
+                const timeDifference = dueDateMoment - today;
+
+                row.querySelector('.due-date').textContent = convertToShamsi(dueDate);
+
+                if (timeDifference <= 3 * 24 * 60 * 60 * 1000 && timeDifference > 0) {
+                    row.classList.add('yellow');
+                } else if (timeDifference < 0) {
+                    row.classList.add('red');
+                }
+            });
+        }
+
+        // به‌روزرسانی رنگ‌ها و تاریخ‌های شمسی پس از بارگذاری صفحه
+        updateProjectRowColors();
+    </script>
+
+</body>
+</html>
+

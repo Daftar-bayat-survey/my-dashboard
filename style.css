@@ -1,98 +1,90 @@
-
-/* Style for the Dashboard */
 body {
     font-family: Arial, sans-serif;
-    direction: rtl;
-    text-align: right;
+    background-color: #f4f4f4;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f9;
 }
 
 header {
-    background-color: #4CAF50;
+    background-color: #333;
     color: white;
-    padding: 15px;
+    padding: 10px;
     text-align: center;
 }
 
-h1 {
-    margin: 0;
+nav ul {
+    list-style: none;
+    padding: 0;
 }
 
-h2 {
-    color: #333;
+nav ul li {
+    display: inline;
+    margin: 0 15px;
 }
 
-.add-project, .projects-list {
-    margin: 20px;
-    padding: 15px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-}
-
-input[type="text"], input[type="date"] {
-    padding: 10px;
-    margin: 5px 0;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-button {
-    padding: 10px;
-    background-color: #4CAF50;
+nav ul li a {
     color: white;
-    border: none;
+    text-decoration: none;
+}
+
+main {
+    padding: 20px;
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+#progressContainer {
+    width: 100%;
+    background-color: #e0e0e0;
+    height: 30px;
     border-radius: 5px;
-    cursor: pointer;
 }
 
-button:hover {
-    background-color: #45a049;
+#progressBar {
+    height: 100%;
+    background-color: #4caf50;
+    color: white;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 5px;
+}
+#projects {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f9f9f9;
+    border-radius: 10px;
 }
 
-ul {
+#projects ul {
     list-style-type: none;
     padding: 0;
 }
 
-li {
-    background-color: #f9f9f9;
-    padding: 10px;
-    margin: 5px 0;
-    border-radius: 5px;
+#projects li {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.edit-button, .delete-button {
-    padding: 5px 10px;
-    border: none;
-    cursor: pointer;
+    padding: 8px;
+    margin: 5px 0;
+    background: #fff;
     border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.edit-button {
-    background-color: #4CAF50;
+#projects button {
+    background: red;
     color: white;
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
-.delete-button {
-    background-color: #f44336;
-    color: white;
-}
-
-.edit-button:hover {
-    background-color: #45a049;
-}
-
-.delete-button:hover {
-    background-color: #d32f2f;
-}
