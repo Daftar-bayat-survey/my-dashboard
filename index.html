@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>داشبورد پروژه‌ها</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>داشبورد مدیریت پروژه‌ها</h1>
+    </header>
+
+    <section class="add-project">
+        <h2>اضافه کردن پروژه</h2>
+        <form id="project-form">
+            <input type="text" id="project-name" placeholder="نام پروژه" required>
+            <input type="date" id="due-date" required>
+            <button type="submit">افزودن پروژه</button>
+        </form>
+    </section>
+
+    <section class="projects-list">
+        <h2>لیست پروژه‌ها</h2>
+        <ul id="project-list"></ul>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
